@@ -21,6 +21,7 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     //outlet of UITableView
     @IBOutlet weak var tableView: UITableView!
     
+    //creating variable for storing login user
     var mSelectedUser : String?
     
     override func viewDidLoad()
@@ -29,7 +30,11 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
 
         //calling method to get admin details
         self.getAdminDetails()
-        // Do any additional setup after loading the view.
+    }
+    
+    override func didReceiveMemoryWarning()
+    {
+        super.didReceiveMemoryWarning()
     }
     
     //getting admin details
@@ -41,12 +46,6 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
             //reloading tableview
             self.tableView.reloadData()
         })
-    }
-
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //returning no. of rows
@@ -74,13 +73,13 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
             //getting selected row
             let selectedRowIndex = self.tableView.indexPathForSelectedRow!
             
-            let selectedAdminName = adminNameList[selectedRowIndex.row]
+            let selectedAdmin = adminNameList[selectedRowIndex.row]
             
             // initialize new view controller and cast it as your view controller
             let destination = segue.destinationViewController as! MessageInboxViewController
             
-            //passing value here
-            destination.mSelectedAdminName = selectedAdminName
+            //passing selected user and admin name
+            destination.mSelectedAdminName = selectedAdmin
             destination.mSelectedUserName = mSelectedUser
         }
 

@@ -2,7 +2,9 @@
 //  MessageInboxViewController.swift
 //  BridgeChatApp
 //
-//  Created by BridgeLabz on 03/10/16.
+//  showing Chat conversations
+//
+//  Created by Sumeet on 03/10/16.
 //  Copyright © 2016 com.bridgeLabz. All rights reserved.
 //
 
@@ -11,7 +13,6 @@ import Firebase
 
 class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableViewDataSource
 {
-
     //outlet of tableView
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,64 +28,88 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //making object of RestCall
     let restCallObj = RestCall()
     
+    //making object of Controller
     let controllerObj = Controller()
     
     //creating reference variable for Firbase Database
-    var ref : FIRDatabaseReference?
+    var mRef : FIRDatabaseReference?
     
-    //creating variable for storing admin names
-    var messagesList = [String]()
+    //creating variable flag
+    var flag = 0
+    
+    //creating variable for storing user messages
+    var userMessageList = [Int: String]()
+    
+    //creating variable for storing admin messages
+    var adminMessageList = [Int: String]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        //calling method to get messages
         self.getMessagesDetails()
-        // Do any additional setup after loading the view.
+    }
+    
+    override func didReceiveMemoryWarning()
+    {
+        super.didReceiveMemoryWarning()
     }
 
-    //getting admin details
+    //getting message details
     func getMessagesDetails()
     {
-        controllerObj.getMessage(mSelectedAdminName!, userName: mSelectedUserName! , callback: { (Result) -> Void in
-            self.messagesList.append(Result)
+        controllerObj.getMessage(mSelectedAdminName!, userName: mSelectedUserName! , callback: { (Result,Result1) -> Void in
+            
+            if Result1 == 0
+            {
+                self.userMessageList.updateValue(Result, forKey: self.flag)
+                self.flag += 1
+            }
+            else
+            {
+                self.adminMessageList.updateValue(Result, forKey: self.flag)
+                self.flag += 1
+            }
             
             //reloading tableview
             self.tableView.reloadData()
         })
-}
-
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    //getting no. of rows
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return messagesList.count
+        return userMessageList.count + adminMessageList.count
     }
     
+    //getting each cell information
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellForChat", forIndexPath: indexPath) as! CustomCellChat
-        print(indexPath.row)
-        cell.mChatLabel.text = messagesList[indexPath.row]
         
+        if let message = userMessageList[indexPath.row]
+        {
+            cell.mChatLabel.text = message
+        }
+        else if let message = adminMessageList[indexPath.row]
+        {
+            cell.mChatLabel.textAlignment = .Left
+            cell.mChatLabel.text = message
+        }
         return cell
     }
     
-    
+    //sending user messages on node
     @IBAction func sendPressed(sender: UIButton)
     {
-        
         //getting reference of firebase database
-        ref = restCallObj.getReferenceFirebase()
+        mRef = restCallObj.getReferenceFirebase()
 
-        ref?.child("\(mSelectedAdminName!)+\(mSelectedUserName!)").childByAutoId().child("userMsg").setValue(mTextMessage.text)
+        //making node as adminName and userName combine to push user message
+        mRef?.child("\(mSelectedAdminName!)\(mSelectedUserName!)").childByAutoId().child("userMsg").setValue(mTextMessage.text)
+        
+        //clearing text field
         mTextMessage.text = ""
-        tableView.reloadData()
     }
-    
-    
 }

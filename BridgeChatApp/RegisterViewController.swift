@@ -10,9 +10,9 @@
 
 import UIKit
 import Firebase
+
 class RegisterViewController: UIViewController
 {
-
     //outlet of UITextField for username
     @IBOutlet weak var mUserNameText: UITextField!
     
@@ -23,10 +23,10 @@ class RegisterViewController: UIViewController
     @IBOutlet weak var mConfirmPasswordText: UITextField!
     
     //creating reference variable for Firbase Database
-    var ref : FIRDatabaseReference?
+    var mRef : FIRDatabaseReference?
 
     //creating variable for storing user key
-    var key : String?
+    var mKey : String?
     
     //creating object for RestCall
     let restCallObj = RestCall()
@@ -34,13 +34,11 @@ class RegisterViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //registering user deatils in firebase
@@ -50,13 +48,13 @@ class RegisterViewController: UIViewController
         if ((mUserNameText.text?.characters.count != 0) && (mPasswordText.text?.characters.count != 0) && (mConfirmPasswordText.text?.characters.count != 0))
         {
             //getting reference of firebase database
-            ref = restCallObj.getReferenceFirebase()
+            mRef = restCallObj.getReferenceFirebase()
             
             //generating user key
-            key = ref?.childByAutoId().key
+            mKey = mRef?.childByAutoId().key
             
             //storing data in firebase database
-            self.ref!.child("Users").child(key!).child("username").setValue(mUserNameText.text)
+            self.mRef!.child("Users").child(mKey!).child("username").setValue(mUserNameText.text)
             
             //goto login page
             performSegueWithIdentifier("gotoLoginFromRegister", sender: self)

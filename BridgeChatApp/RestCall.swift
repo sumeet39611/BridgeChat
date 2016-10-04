@@ -2,7 +2,9 @@
 //  RestCall.swift
 //  BridgeChatApp
 //
-//  Created by BridgeLabz on 03/10/16.
+//  RestCall for getting firebase URL
+//
+//  Created by Sumeet on 03/10/16.
 //  Copyright © 2016 com.bridgeLabz. All rights reserved.
 //
 

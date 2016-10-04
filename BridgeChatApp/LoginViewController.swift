@@ -43,8 +43,7 @@ class LoginViewController: UIViewController
     func getUserDetails()
     {
         controllerObj.getUserNames({ (Result) -> Void in
-            let userName = Result
-            self.userNameList.append(userName)
+            self.userNameList.append(Result)
         })
     }
     
@@ -75,9 +74,6 @@ class LoginViewController: UIViewController
             //passing value here
             destination.mSelectedUser = selectedUserName
         }
-
-        
-        
     }
     
 }
