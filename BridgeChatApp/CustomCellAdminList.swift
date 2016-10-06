@@ -13,21 +13,21 @@ import UIKit
 class CustomCellAdminList: UITableViewCell
 {
 
-    //outlet of UILabel
+    //outlet of UILabel for admin name
     @IBOutlet weak var mAdminNames: UILabel!
     
+    //outlet of UILabel for admin status
     @IBOutlet weak var mAdminStatus: UILabel!
     
     
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
-        // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(selected: Bool, animated: Bool)
+    {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

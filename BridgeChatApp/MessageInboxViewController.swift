@@ -19,11 +19,13 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //outlet of UITextField
     @IBOutlet weak var mTextMessage: UITextField!
     
+    //outlet of UILabel for status
     @IBOutlet weak var mStatus: UILabel!
     
     //creating variable for Selected admin name
     var mSelectedAdminName : String?
     
+    //creating variable for Selected admin status
     var mSelectedAdminStatus : String?
     
     //creating variable for Selected user name
@@ -51,7 +53,13 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     {
         super.viewDidLoad()
         
+        //hiding separator lines in tableView
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        
+        //setting status of admin
         mStatus.text = mSelectedAdminStatus
+        
+        //setting admin name
         self.title = mSelectedAdminName
         
         //calling method to get messages
@@ -63,10 +71,8 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         super.viewWillAppear(animated)
         
         // Add a background view to the table view
-        let backgroundImage = UIImage(named: "backgroundImage")
+        let backgroundImage = UIImage(named: "images")
         let imageView = UIImageView(image: backgroundImage)
-        
-
         self.tableView.backgroundView = imageView
     }
     
@@ -82,11 +88,13 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
             
             if Result1 == 0
             {
+                //getting user message
                 self.userMessageList.updateValue(Result, forKey: self.flag)
                 self.flag += 1
             }
             else
             {
+                //getting admin message
                 self.adminMessageList.updateValue(Result, forKey: self.flag)
                 self.flag += 1
             }
@@ -101,6 +109,8 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     {
         return userMessageList.count + adminMessageList.count
     }
+    
+    //returning height of row
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
         return 35
@@ -124,6 +134,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         return cell
     }
     
+    //setting background color for cell
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
     {
         cell.backgroundColor = .clearColor()
@@ -132,13 +143,17 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //sending user messages on node
     @IBAction func sendPressed(sender: UIButton)
     {
-        //getting reference of firebase database
-        mRef = restCallObj.getReferenceFirebase()
+        if mTextMessage.text?.characters.count != 0
+        {
+            //getting reference of firebase database
+            mRef = restCallObj.getReferenceFirebase()
 
-        //making node as adminName and userName combine to push user message
-        mRef?.child("\(mSelectedAdminName!)\(mSelectedUserName!)").childByAutoId().child("userMsg").setValue(mTextMessage.text)
-        
-        //clearing text field
-        mTextMessage.text = ""
+            //making node as adminName and userName combine to push user message
+            mRef?.child("\(mSelectedAdminName!)\(mSelectedUserName!)").childByAutoId().child("userMsg").setValue(mTextMessage.text)
+            
+            //clearing text field
+            mTextMessage.text = ""
+        }
     }
+
 }

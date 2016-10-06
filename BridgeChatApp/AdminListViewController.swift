@@ -19,9 +19,9 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     //creating variable for storing admin names
     var adminNameList = [String]()
     
+    //creating variable for storing admin status
     var adminStatusList = [String]()
     
-
     //outlet of UITableView
     @IBOutlet weak var tableView: UITableView!
     
@@ -40,6 +40,8 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLineEtched
         
         //hiding back button
         self.navigationItem.setHidesBackButton(true, animated:true);
@@ -95,11 +97,14 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
             
             //getting selected admin
             let selectedAdmin = adminNameList[selectedRowIndex.row]
+            
+            //getting selected admin status
             let selectedAdminStatus = adminStatusList[selectedRowIndex.row]
+            
             // initialize new view controller and cast it as your view controller
             let destination = segue.destinationViewController as! MessageInboxViewController
             
-            //passing selected user and admin name
+            //passing selected user name,admin name and admin status
             destination.mSelectedAdminName = selectedAdmin
             destination.mSelectedUserName = mSelectedUser
             destination.mSelectedAdminStatus = selectedAdminStatus
@@ -115,6 +120,7 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         //setting status of user as offline
         self.mRef!.child("Users").child(mSelectedUserKey!).child("status").setValue("offline")
         
+        //goto home page
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     

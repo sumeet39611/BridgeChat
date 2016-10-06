@@ -43,11 +43,11 @@ class Controller: NSObject
         ref!.child("Admin").queryOrderedByChild("AdminName").observeEventType(.ChildAdded, withBlock: { snapshot in
             let adminName = snapshot.value!["AdminName"] as? String
             let status = snapshot.value! ["Status"] as? String
-            print(status)
+            //print(status)
             //print(snapshot.key)
             if (adminName != nil && status != nil)
             {
-            callback(Result: adminName!, Result1: status!)
+                callback(Result: adminName!, Result1: status!)
             }
         })
     }
@@ -67,11 +67,10 @@ class Controller: NSObject
                 msg = snapshot.value!["sendmsg"] as? String
                 flag = 1
             }
-            //print(snapshot.key)
             
             if (msg != nil)
             {
-            callback(Result: msg!, Result1: flag)
+                callback(Result: msg!, Result1: flag)
             }
         })
     }

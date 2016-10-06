@@ -70,7 +70,7 @@ class LoginViewController: UIViewController
                 //getting reference of firebase database
                 mRef = restCallObj.getReferenceFirebase()
                 
-                //getting key of logined user
+                //getting key of logged user
                 mUserKey = userKeyWithNameList[name]
                 
                 //setting status of user as online
@@ -93,8 +93,10 @@ class LoginViewController: UIViewController
             // initialize new view controller and cast it as your view controller
             let destination = segue.destinationViewController as! AdminListViewController
             
-            //passing value here
+            //passing value of selected user
             destination.mSelectedUser = selectedUserName
+            
+            //passing value of selected user key
             destination.mSelectedUserKey = mUserKey
         }
     }
