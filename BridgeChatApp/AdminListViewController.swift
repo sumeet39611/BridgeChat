@@ -9,6 +9,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AdminListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource
 {
@@ -17,6 +18,9 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     
     //creating variable for storing admin names
     var adminNameList = [String]()
+    
+    var adminStatusList = [String]()
+    
 
     //outlet of UITableView
     @IBOutlet weak var tableView: UITableView!
@@ -24,9 +28,21 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     //creating variable for storing login user
     var mSelectedUser : String?
     
+    //creating reference variable for Firbase Database
+    var mRef : FIRDatabaseReference?
+    
+    //making object of RestCall
+    var restCallObj = RestCall()
+    
+    //creating variable for storing user key
+    var mSelectedUserKey : String?
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        //hiding back button
+        self.navigationItem.setHidesBackButton(true, animated:true);
 
         //calling method to get admin details
         self.getAdminDetails()
@@ -40,8 +56,9 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     //getting admin details
     func getAdminDetails()
     {
-        controllerObj.getAdminNames({ (Result) -> Void in
+        controllerObj.getAdminNames({ (Result,Result1) -> Void in
             self.adminNameList.append(Result)
+            self.adminStatusList.append(Result1)
             
             //reloading tableview
             self.tableView.reloadData()
@@ -59,8 +76,11 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellForAdmin", forIndexPath: indexPath) as! CustomCellAdminList
         
-        //setting admin names in table
+        //setting admin name
         cell.mAdminNames.text = adminNameList[indexPath.row]
+        
+        //setting admin status
+        cell.mAdminStatus.text = adminStatusList[indexPath.row]
         
         return cell
     }
@@ -73,19 +93,32 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
             //getting selected row
             let selectedRowIndex = self.tableView.indexPathForSelectedRow!
             
+            //getting selected admin
             let selectedAdmin = adminNameList[selectedRowIndex.row]
-            
+            let selectedAdminStatus = adminStatusList[selectedRowIndex.row]
             // initialize new view controller and cast it as your view controller
             let destination = segue.destinationViewController as! MessageInboxViewController
             
             //passing selected user and admin name
             destination.mSelectedAdminName = selectedAdmin
             destination.mSelectedUserName = mSelectedUser
+            destination.mSelectedAdminStatus = selectedAdminStatus
+            
         }
-
-        
-       
     }
+    
+    @IBAction func logoutPressed(sender: UIBarButtonItem)
+    {
+        //getting reference of firebase database
+        mRef = restCallObj.getReferenceFirebase()
+        
+        //setting status of user as offline
+        self.mRef!.child("Users").child(mSelectedUserKey!).child("status").setValue("offline")
+        
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
+    
     
 
 }

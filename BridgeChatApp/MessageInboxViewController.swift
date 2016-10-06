@@ -19,8 +19,12 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //outlet of UITextField
     @IBOutlet weak var mTextMessage: UITextField!
     
+    @IBOutlet weak var mStatus: UILabel!
+    
     //creating variable for Selected admin name
     var mSelectedAdminName : String?
+    
+    var mSelectedAdminStatus : String?
     
     //creating variable for Selected user name
     var mSelectedUserName : String?
@@ -47,8 +51,23 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     {
         super.viewDidLoad()
         
+        mStatus.text = mSelectedAdminStatus
+        self.title = mSelectedAdminName
+        
         //calling method to get messages
         self.getMessagesDetails()
+    }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        
+        // Add a background view to the table view
+        let backgroundImage = UIImage(named: "backgroundImage")
+        let imageView = UIImageView(image: backgroundImage)
+        
+
+        self.tableView.backgroundView = imageView
     }
     
     override func didReceiveMemoryWarning()
@@ -82,6 +101,10 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     {
         return userMessageList.count + adminMessageList.count
     }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        return 35
+    }
     
     //getting each cell information
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -95,9 +118,15 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         else if let message = adminMessageList[indexPath.row]
         {
             cell.mChatLabel.textAlignment = .Left
+            cell.mChatLabel.textColor = UIColor.cyanColor()
             cell.mChatLabel.text = message
         }
         return cell
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        cell.backgroundColor = .clearColor()
     }
     
     //sending user messages on node

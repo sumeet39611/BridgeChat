@@ -53,8 +53,11 @@ class RegisterViewController: UIViewController
             //generating user key
             mKey = mRef?.childByAutoId().key
             
-            //storing data in firebase database
+            //storing user data in firebase database
             self.mRef!.child("Users").child(mKey!).child("username").setValue(mUserNameText.text)
+            
+            self.mRef!.child("Users").child(mKey!).child("status").setValue("offline")
+            
             
             //goto login page
             performSegueWithIdentifier("gotoLoginFromRegister", sender: self)
@@ -81,4 +84,5 @@ class RegisterViewController: UIViewController
         //adding alert to register view
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
+
 }

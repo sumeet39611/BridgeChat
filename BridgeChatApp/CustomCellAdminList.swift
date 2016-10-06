@@ -16,6 +16,9 @@ class CustomCellAdminList: UITableViewCell
     //outlet of UILabel
     @IBOutlet weak var mAdminNames: UILabel!
     
+    @IBOutlet weak var mAdminStatus: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
