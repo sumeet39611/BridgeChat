@@ -23,10 +23,10 @@ class LoginViewController: UIViewController
     let controllerObj = Controller()
     
     //creating variable for storing user names
-    var userNameList = [String]()
+    var mUserNameList = [String]()
     
     //creating variabe for storing user keys
-    var userKeyWithNameList = [String : String]()
+    var mUserKeyWithNameList = [String : String]()
     
     //creating reference variable for Firbase Database
     var mRef : FIRDatabaseReference?
@@ -55,15 +55,15 @@ class LoginViewController: UIViewController
     func getUserDetails()
     {
         controllerObj.getUserNames({ (Result,Result1) -> Void in
-            self.userNameList.append(Result)
-            self.userKeyWithNameList.updateValue(Result1, forKey: Result)
+            self.mUserNameList.append(Result)
+            self.mUserKeyWithNameList.updateValue(Result1, forKey: Result)
         })
     }
     
     //checking username exits or not
     @IBAction func signInPressed(sender: UIButton)
     {
-        for name in userNameList
+        for name in mUserNameList
         {
             if mUserName.text == name
             {
@@ -71,7 +71,7 @@ class LoginViewController: UIViewController
                 mRef = restCallObj.getReferenceFirebase()
                 
                 //getting key of logged user
-                mUserKey = userKeyWithNameList[name]
+                mUserKey = mUserKeyWithNameList[name]
                 
                 //setting status of user as online
                 self.mRef!.child("Users").child(mUserKey!).child("status").setValue("online")
@@ -80,6 +80,8 @@ class LoginViewController: UIViewController
                 performSegueWithIdentifier("gotoadminListViewController", sender: self)
             }
         }
+        
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)

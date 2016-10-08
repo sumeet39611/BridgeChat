@@ -17,10 +17,10 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     let controllerObj = Controller()
     
     //creating variable for storing admin names
-    var adminNameList = [String]()
+    var mAdminNameList = [String]()
     
     //creating variable for storing admin status
-    var adminStatusList = [String]()
+    var mAdminStatusList = [String]()
     
     //outlet of UITableView
     @IBOutlet weak var tableView: UITableView!
@@ -40,14 +40,14 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-//        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLineEtched
-        
+    
         //hiding back button
         self.navigationItem.setHidesBackButton(true, animated:true);
 
         //calling method to get admin details
         self.getAdminDetails()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateChildInfo), name: "MyNotification", object:nil)
     }
     
     override func didReceiveMemoryWarning()
@@ -59,8 +59,8 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     func getAdminDetails()
     {
         controllerObj.getAdminNames({ (Result,Result1) -> Void in
-            self.adminNameList.append(Result)
-            self.adminStatusList.append(Result1)
+            self.mAdminNameList.append(Result)
+            self.mAdminStatusList.append(Result1)
             
             //reloading tableview
             self.tableView.reloadData()
@@ -70,7 +70,7 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
     //returning no. of rows
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return adminNameList.count
+        return mAdminNameList.count
     }
     
     //getting each cell information
@@ -79,10 +79,10 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("cellForAdmin", forIndexPath: indexPath) as! CustomCellAdminList
         
         //setting admin name
-        cell.mAdminNames.text = adminNameList[indexPath.row]
+        cell.mAdminNames.text = mAdminNameList[indexPath.row]
         
         //setting admin status
-        cell.mAdminStatus.text = adminStatusList[indexPath.row]
+        cell.mAdminStatus.text = mAdminStatusList[indexPath.row]
         
         return cell
     }
@@ -96,10 +96,10 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
             let selectedRowIndex = self.tableView.indexPathForSelectedRow!
             
             //getting selected admin
-            let selectedAdmin = adminNameList[selectedRowIndex.row]
+            let selectedAdmin = mAdminNameList[selectedRowIndex.row]
             
             //getting selected admin status
-            let selectedAdminStatus = adminStatusList[selectedRowIndex.row]
+            let selectedAdminStatus = mAdminStatusList[selectedRowIndex.row]
             
             // initialize new view controller and cast it as your view controller
             let destination = segue.destinationViewController as! MessageInboxViewController
@@ -108,7 +108,6 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
             destination.mSelectedAdminName = selectedAdmin
             destination.mSelectedUserName = mSelectedUser
             destination.mSelectedAdminStatus = selectedAdminStatus
-            
         }
     }
     
@@ -124,7 +123,32 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
-    
-    
+    // updating child on any change
+    func updateChildInfo(notification: NSNotification)
+    {
+        let adminName = notification.userInfo?["success"] as! String
+        var index = 0
+        for name in mAdminNameList
+        {
+            if adminName == name
+            {
+                break
+            }
+            index += 1
+        }
+        
+        //updating admin status
+        if mAdminStatusList[index] == "online"
+        {
+            mAdminStatusList[index] = "offline"
+        }
+        else if mAdminStatusList[index] == "offline"
+        {
+            mAdminStatusList[index] = "online"
+        }
+        
+        //reloading tableview
+        tableView.reloadData()
+    }
 
 }

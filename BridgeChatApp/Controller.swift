@@ -43,12 +43,18 @@ class Controller: NSObject
         ref!.child("Admin").queryOrderedByChild("AdminName").observeEventType(.ChildAdded, withBlock: { snapshot in
             let adminName = snapshot.value!["AdminName"] as? String
             let status = snapshot.value! ["Status"] as? String
-            //print(status)
-            //print(snapshot.key)
             if (adminName != nil && status != nil)
             {
                 callback(Result: adminName!, Result1: status!)
             }
+        })
+        
+        //getting any change in Admin child
+        ref!.child("Admin").observeEventType(.ChildChanged, withBlock: { snapshot in
+            let adminName = snapshot.value!.objectForKey("AdminName") as? String
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("MyNotification", object: nil, userInfo: ["success":adminName!])
+           NSNotificationCenter.defaultCenter().postNotificationName("StatusNotification", object: nil)
         })
     }
     
@@ -67,7 +73,6 @@ class Controller: NSObject
                 msg = snapshot.value!["sendmsg"] as? String
                 flag = 1
             }
-            
             if (msg != nil)
             {
                 callback(Result: msg!, Result1: flag)

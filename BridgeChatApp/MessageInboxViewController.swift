@@ -41,34 +41,48 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     var mRef : FIRDatabaseReference?
     
     //creating variable flag
-    var flag = 0
+    var mFlag = 0
     
     //creating variable for storing user messages
-    var userMessageList = [Int: String]()
+    var mUserMessageList = [Int: String]()
     
     //creating variable for storing admin messages
-    var adminMessageList = [Int: String]()
+    var mAdminMessageList = [Int: String]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        //hiding separator lines in tableView
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        
-        //setting status of admin
-        mStatus.text = mSelectedAdminStatus
         
         //setting admin name
         self.title = mSelectedAdminName
         
         //calling method to get messages
         self.getMessagesDetails()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateAdminStatus), name: "StatusNotification", object:nil)
+        
+    }
+    
+    func updateAdminStatus()
+    {
+        if mSelectedAdminStatus == "online"
+        {
+            mSelectedAdminStatus = "offline"
+        }
+        else if mSelectedAdminStatus == "offline"
+        {
+            mSelectedAdminStatus = "online"
+        }
+        mStatus.text = mSelectedAdminStatus
+    
     }
     
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
+        
+        //setting status of admin
+        mStatus.text = mSelectedAdminStatus
         
         // Add a background view to the table view
         let backgroundImage = UIImage(named: "images")
@@ -89,14 +103,14 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
             if Result1 == 0
             {
                 //getting user message
-                self.userMessageList.updateValue(Result, forKey: self.flag)
-                self.flag += 1
+                self.mUserMessageList.updateValue(Result, forKey: self.mFlag)
+                self.mFlag += 1
             }
             else
             {
                 //getting admin message
-                self.adminMessageList.updateValue(Result, forKey: self.flag)
-                self.flag += 1
+                self.mAdminMessageList.updateValue(Result, forKey: self.mFlag)
+                self.mFlag += 1
             }
             
             //reloading tableview
@@ -107,7 +121,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //getting no. of rows
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return userMessageList.count + adminMessageList.count
+        return mUserMessageList.count + mAdminMessageList.count
     }
     
     //returning height of row
@@ -121,11 +135,11 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellForChat", forIndexPath: indexPath) as! CustomCellChat
         
-        if let message = userMessageList[indexPath.row]
+        if let message = mUserMessageList[indexPath.row]
         {
             cell.mChatLabel.text = message
         }
-        else if let message = adminMessageList[indexPath.row]
+        else if let message = mAdminMessageList[indexPath.row]
         {
             cell.mChatLabel.textAlignment = .Left
             cell.mChatLabel.textColor = UIColor.cyanColor()

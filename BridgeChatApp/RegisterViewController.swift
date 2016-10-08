@@ -58,7 +58,6 @@ class RegisterViewController: UIViewController
             
             self.mRef!.child("Users").child(mKey!).child("status").setValue("offline")
             
-            
             //goto login page
             performSegueWithIdentifier("gotoLoginFromRegister", sender: self)
         }
