@@ -16,10 +16,9 @@ class CustomCellAdminList: UITableViewCell
     //outlet of UILabel for admin name
     @IBOutlet weak var mAdminNames: UILabel!
     
-    //outlet of UILabel for admin status
-    @IBOutlet weak var mAdminStatus: UILabel!
-    
-    
+    //outlet of UIImageView
+    @IBOutlet weak var mImageView: UIImageView!
+   
     override func awakeFromNib()
     {
         super.awakeFromNib()

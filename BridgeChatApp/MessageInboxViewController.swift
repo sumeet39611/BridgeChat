@@ -63,6 +63,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         
     }
     
+    //updated admin status
     func updateAdminStatus()
     {
         if mSelectedAdminStatus == "online"
@@ -74,7 +75,6 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
             mSelectedAdminStatus = "online"
         }
         mStatus.text = mSelectedAdminStatus
-    
     }
     
     override func viewWillAppear(animated: Bool)

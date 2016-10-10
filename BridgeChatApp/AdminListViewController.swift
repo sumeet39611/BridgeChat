@@ -82,7 +82,19 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         cell.mAdminNames.text = mAdminNameList[indexPath.row]
         
         //setting admin status
-        cell.mAdminStatus.text = mAdminStatusList[indexPath.row]
+        //cell.mAdminStatus.text = mAdminStatusList[indexPath.row]
+        
+        cell.mImageView.layer.cornerRadius = cell.mImageView.frame.height/2
+        
+        
+        if mAdminStatusList[indexPath.row] == "online"
+        {
+            cell.mImageView.backgroundColor = UIColor.greenColor()
+        }
+        else if mAdminStatusList[indexPath.row] == "offline"
+        {
+            cell.mImageView.backgroundColor = UIColor.redColor()
+        }
         
         return cell
     }
@@ -111,6 +123,7 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         }
     }
     
+    //on click of logout button
     @IBAction func logoutPressed(sender: UIBarButtonItem)
     {
         //getting reference of firebase database

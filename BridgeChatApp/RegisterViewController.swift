@@ -31,14 +31,34 @@ class RegisterViewController: UIViewController
     //creating object for RestCall
     let restCallObj = RestCall()
     
+    //making object of Controller
+    let controllerObj = Controller()
+    
+    //creating variable for storing user names
+    var mUserNameList = [String]()
+    
+    //creating variable
+    var mFlag = 0
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        //calling method
+        self.getUserDetails()
     }
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
+    }
+    
+    //getting user details
+    func getUserDetails()
+    {
+        controllerObj.getUserNames({ (Result,Result1) -> Void in
+            self.mUserNameList.append(Result)
+        })
     }
     
     //registering user deatils in firebase
@@ -47,19 +67,46 @@ class RegisterViewController: UIViewController
         //checking fields are empty or not
         if ((mUserNameText.text?.characters.count != 0) && (mPasswordText.text?.characters.count != 0) && (mConfirmPasswordText.text?.characters.count != 0))
         {
-            //getting reference of firebase database
-            mRef = restCallObj.getReferenceFirebase()
-            
-            //generating user key
-            mKey = mRef?.childByAutoId().key
-            
-            //storing user data in firebase database
-            self.mRef!.child("Users").child(mKey!).child("username").setValue(mUserNameText.text)
-            
-            self.mRef!.child("Users").child(mKey!).child("status").setValue("offline")
-            
-            //goto login page
-            performSegueWithIdentifier("gotoLoginFromRegister", sender: self)
+            //checking password matching
+            if (mPasswordText.text == mConfirmPasswordText.text)
+            {
+                //checking username already exist or not
+                for name in mUserNameList
+                {
+                    if mUserNameText.text == name
+                    {
+                        //displaying alert message
+                        displayMyAlertMessage("Username already exist")
+                        mFlag = 1
+                        break
+                    }
+                }
+                if mFlag == 0
+                {
+                    //getting reference of firebase database
+                    mRef = restCallObj.getReferenceFirebase()
+                    
+                    //generating user key
+                    mKey = mRef?.childByAutoId().key
+                    
+                    //storing user data in firebase database
+                    self.mRef!.child("Users").child(mKey!).child("username").setValue(mUserNameText.text)
+                    
+                    self.mRef!.child("Users").child(mKey!).child("status").setValue("offline")
+                    
+                    //goto login page
+                    performSegueWithIdentifier("gotoLoginFromRegister", sender: self)
+                }
+                else
+                {
+                    mFlag = 0
+                }
+            }
+            else
+            {
+                //displaying alert message
+                displayMyAlertMessage("password and confirm password is not matching")
+            }
         }
         else
         {
@@ -82,6 +129,7 @@ class RegisterViewController: UIViewController
         
         //adding alert to register view
         self.presentViewController(myAlert, animated: true, completion: nil)
+       
     }
 
 }

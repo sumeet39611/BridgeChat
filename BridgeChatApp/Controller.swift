@@ -34,6 +34,8 @@ class Controller: NSObject
         })
     }
     
+    
+    
     //getting admin names
     func getAdminNames(callback: (Result : String, Result1 : String) -> Void)
     {

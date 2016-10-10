@@ -191,18 +191,15 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSG-wc-vy8">
-                                                    <rect key="frame" x="217" y="11" width="56" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KPl-cs-iaq">
+                                                    <rect key="frame" x="245" y="12" width="20" height="20"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.80380540810000001" green="0.93720978210000006" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="mAdminNames" destination="lVC-PJ-6vh" id="0oX-73-WZB"/>
-                                            <outlet property="mAdminStatus" destination="bSG-wc-vy8" id="xNs-V0-e6G"/>
+                                            <outlet property="mImageView" destination="KPl-cs-iaq" id="cCL-E9-p6B"/>
                                             <segue destination="YBg-uk-8SX" kind="push" identifier="gotoMessageInboxViewController" id="QWn-VE-L1A"/>
                                         </connections>
                                     </tableViewCell>
@@ -341,6 +338,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Ohe-WP-LGP"/>
+        <segue reference="x2G-rg-6zR"/>
     </inferredMetricsTieBreakers>
 </document>
