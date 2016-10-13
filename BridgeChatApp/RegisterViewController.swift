@@ -44,7 +44,10 @@ class RegisterViewController: UIViewController
     {
         super.viewDidLoad()
         
-        //calling method
+        //setting background image
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundImage")!)
+        
+        //calling method to get user names
         self.getUserDetails()
     }
 

@@ -34,8 +34,6 @@ class Controller: NSObject
         })
     }
     
-    
-    
     //getting admin names
     func getAdminNames(callback: (Result : String, Result1 : String) -> Void)
     {
@@ -51,7 +49,7 @@ class Controller: NSObject
             }
         })
         
-        //getting any change in Admin child
+        //getting any change in Admin info
         ref!.child("Admin").observeEventType(.ChildChanged, withBlock: { snapshot in
             let adminName = snapshot.value!.objectForKey("AdminName") as? String
             

@@ -59,6 +59,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         //calling method to get messages
         self.getMessagesDetails()
         
+        //adding observer for notification if any change in admin status
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateAdminStatus), name: "StatusNotification", object:nil)
         
     }
@@ -85,7 +86,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         mStatus.text = mSelectedAdminStatus
         
         // Add a background view to the table view
-        let backgroundImage = UIImage(named: "images")
+        let backgroundImage = UIImage(named: "chatBackground")
         let imageView = UIImageView(image: backgroundImage)
         self.tableView.backgroundView = imageView
     }
@@ -112,7 +113,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
                 self.mAdminMessageList.updateValue(Result, forKey: self.mFlag)
                 self.mFlag += 1
             }
-            
+           
             //reloading tableview
             self.tableView.reloadData()
         })
@@ -134,26 +135,30 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellForChat", forIndexPath: indexPath) as! CustomCellChat
-        
+        //print(indexPath.row)
         if let message = mUserMessageList[indexPath.row]
         {
+            cell.mChatLabel.textAlignment = .Right
+            cell.mChatLabel.textColor = UIColor.greenColor()
+            cell.backgroundColor = UIColor.grayColor()
             cell.mChatLabel.text = message
         }
         else if let message = mAdminMessageList[indexPath.row]
         {
             cell.mChatLabel.textAlignment = .Left
             cell.mChatLabel.textColor = UIColor.cyanColor()
+            cell.backgroundColor = UIColor.darkGrayColor()
             cell.mChatLabel.text = message
         }
         return cell
     }
     
-    //setting background color for cell
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
-    {
-        cell.backgroundColor = .clearColor()
-    }
-    
+//    //setting background color for cell
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
+//    {
+//        cell.backgroundColor = .clearColor()
+//    }
+//    
     //sending user messages on node
     @IBAction func sendPressed(sender: UIButton)
     {
@@ -168,6 +173,12 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
             //clearing text field
             mTextMessage.text = ""
         }
+    }
+    
+    //removing NSNotification observer
+    override func viewWillDisappear(animated: Bool)
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 }

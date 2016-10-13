@@ -47,13 +47,25 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         //calling method to get admin details
         self.getAdminDetails()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateChildInfo), name: "MyNotification", object:nil)
+        //adding observer for notification if any change in admin details
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateAdminInfo), name: "MyNotification", object:nil)
     }
     
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
     }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        
+        // Add a background view to the table view
+        let backgroundImage = UIImage(named: "adminListBackground")
+        let imageView = UIImageView(image: backgroundImage)
+        self.tableView.backgroundView = imageView
+    }
+    
     
     //getting admin details
     func getAdminDetails()
@@ -98,6 +110,13 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         
         return cell
     }
+    
+    //setting background color for cell
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        cell.backgroundColor = .clearColor()
+    }
+
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
@@ -136,8 +155,8 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
-    // updating child on any change
-    func updateChildInfo(notification: NSNotification)
+    // updating admin on any change
+    func updateAdminInfo(notification: NSNotification)
     {
         let adminName = notification.userInfo?["success"] as! String
         var index = 0
@@ -163,5 +182,5 @@ class AdminListViewController: UIViewController , UITableViewDelegate, UITableVi
         //reloading tableview
         tableView.reloadData()
     }
-
+    
 }

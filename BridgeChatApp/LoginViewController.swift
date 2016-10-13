@@ -12,7 +12,7 @@ import UIKit
 import Firebase
 
 class LoginViewController: UIViewController
-{
+{    
     //outlet of UITextField for username
     @IBOutlet weak var mUserName: UITextField!
     
@@ -40,6 +40,9 @@ class LoginViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        //setting background image
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundImage")!)
         
         //calling method to get user deatils
         self.getUserDetails()
@@ -80,8 +83,6 @@ class LoginViewController: UIViewController
                 performSegueWithIdentifier("gotoadminListViewController", sender: self)
             }
         }
-        
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -102,5 +103,4 @@ class LoginViewController: UIViewController
             destination.mSelectedUserKey = mUserKey
         }
     }
-    
 }
