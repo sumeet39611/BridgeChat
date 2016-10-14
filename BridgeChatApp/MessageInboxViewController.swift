@@ -48,21 +48,38 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     
     //creating variable for storing admin messages
     var mAdminMessageList = [Int: String]()
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        //setting admin name
-        self.title = mSelectedAdminName
+        //creating tableview cell dynamically
+        self.tableView.estimatedRowHeight = 21
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         
-        //calling method to get messages
-        self.getMessagesDetails()
-        
-        //adding observer for notification if any change in admin status
+        //calling method to get admin details
+        self.getAdminDetails()
+       
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateAdminStatus), name: "StatusNotification", object:nil)
         
+        //adding observer for notification to get message of admin chat
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMessagesDetails), name: "AdminNotify", object: nil)
     }
+    
+    //getting admin details
+    func getAdminDetails()
+    {
+        mUserMessageList.removeAll()
+        mAdminMessageList.removeAll()
+        
+        controllerObj.getAdminNames({ (Result,Result1) -> Void in
+            self.mSelectedAdminName = Result
+            self.mSelectedAdminStatus = Result1
+            
+                NSNotificationCenter.defaultCenter().postNotificationName("AdminNotify", object: nil)
+        })
+    }
+    
     
     //updated admin status
     func updateAdminStatus()
@@ -82,11 +99,8 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     {
         super.viewWillAppear(animated)
         
-        //setting status of admin
-        mStatus.text = mSelectedAdminStatus
-        
         // Add a background view to the table view
-        let backgroundImage = UIImage(named: "chatBackground")
+        let backgroundImage = UIImage(named: "backgroundImage")
         let imageView = UIImageView(image: backgroundImage)
         self.tableView.backgroundView = imageView
     }
@@ -99,6 +113,12 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //getting message details
     func getMessagesDetails()
     {
+        //setting status of admin
+        mStatus.text = mSelectedAdminStatus
+        
+        //setting admin name
+        self.title = mSelectedAdminName
+        
         controllerObj.getMessage(mSelectedAdminName!, userName: mSelectedUserName! , callback: { (Result,Result1) -> Void in
             
             if Result1 == 0
@@ -125,40 +145,35 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         return mUserMessageList.count + mAdminMessageList.count
     }
     
-    //returning height of row
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    {
-        return 35
-    }
-    
     //getting each cell information
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellForChat", forIndexPath: indexPath) as! CustomCellChat
-        //print(indexPath.row)
+        cell.backgroundColor = UIColor.clearColor()
         if let message = mUserMessageList[indexPath.row]
         {
-            cell.mChatLabel.textAlignment = .Right
-            cell.mChatLabel.textColor = UIColor.greenColor()
-            cell.backgroundColor = UIColor.grayColor()
+//            cell.mChatLabel.textAlignment = .Right
+            cell.mChatLabel.backgroundColor = UIColor.lightTextColor()
+            cell.mChatLabel.textColor = UIColor.magentaColor()
             cell.mChatLabel.text = message
+            cell.mAdminChatLabel.text = ""
+            cell.mAdminChatLabel.hidden = true
+            cell.mChatLabel.hidden = false
         }
         else if let message = mAdminMessageList[indexPath.row]
         {
-            cell.mChatLabel.textAlignment = .Left
-            cell.mChatLabel.textColor = UIColor.cyanColor()
-            cell.backgroundColor = UIColor.darkGrayColor()
-            cell.mChatLabel.text = message
+            
+            cell.mAdminChatLabel.textAlignment = .Left
+            cell.mAdminChatLabel.backgroundColor = UIColor.lightGrayColor()
+            cell.mAdminChatLabel.textColor = UIColor.cyanColor()
+            cell.mAdminChatLabel.text = message
+            cell.mChatLabel.text = ""
+            cell.mChatLabel.hidden = true
+            cell.mAdminChatLabel.hidden = false
         }
         return cell
     }
-    
-//    //setting background color for cell
-//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
-//    {
-//        cell.backgroundColor = .clearColor()
-//    }
-//    
+
     //sending user messages on node
     @IBAction func sendPressed(sender: UIButton)
     {
@@ -174,11 +189,4 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
             mTextMessage.text = ""
         }
     }
-    
-    //removing NSNotification observer
-    override func viewWillDisappear(animated: Bool)
-    {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-
 }

@@ -80,7 +80,7 @@ class LoginViewController: UIViewController
                 self.mRef!.child("Users").child(mUserKey!).child("status").setValue("online")
                 
                 //goto admin list page
-                performSegueWithIdentifier("gotoadminListViewController", sender: self)
+                performSegueWithIdentifier("gotoMessageInboxController", sender: self)
             }
         }
     }
@@ -88,19 +88,21 @@ class LoginViewController: UIViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         //checking with identifier
-        if (segue.identifier == "gotoadminListViewController")
+        if (segue.identifier == "gotoMessageInboxController")
         {
             //getting selected row
             let selectedUserName = mUserName.text
             
             // initialize new view controller and cast it as your view controller
-            let destination = segue.destinationViewController as! AdminListViewController
+            let destination = segue.destinationViewController as! MessageInboxViewController
             
-            //passing value of selected user
-            destination.mSelectedUser = selectedUserName
+            destination.mSelectedUserName = selectedUserName
             
-            //passing value of selected user key
-            destination.mSelectedUserKey = mUserKey
+//            //passing value of selected user
+//            destination.mSelectedUser = selectedUserName
+//            
+//            //passing value of selected user key
+//            destination.mSelectedUserKey = mUserKey
         }
     }
 }

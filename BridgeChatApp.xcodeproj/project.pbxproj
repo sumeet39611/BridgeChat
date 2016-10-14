@@ -7,42 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A2A7EE11DB0ABC1008AF2BE /* Assets 11-28-44-785.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A2A7EE01DB0ABC1008AF2BE /* Assets 11-28-44-785.xcassets */; };
 		0A2E88E01DA218DF0090C7E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E88DF1DA218DF0090C7E7 /* AppDelegate.swift */; };
 		0A2E88E51DA218DF0090C7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E88E31DA218DF0090C7E7 /* Main.storyboard */; };
-		0A2E88E71DA218E00090C7E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E88E61DA218E00090C7E7 /* Assets.xcassets */; };
 		0A2E88EA1DA218E00090C7E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E88E81DA218E00090C7E7 /* LaunchScreen.storyboard */; };
 		0A2E88F21DA219680090C7E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E88F11DA219680090C7E7 /* GoogleService-Info.plist */; };
 		0A2E88F41DA21BEE0090C7E7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E88F31DA21BEE0090C7E7 /* HomeViewController.swift */; };
 		0A2E88F61DA21C450090C7E7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E88F51DA21C450090C7E7 /* LoginViewController.swift */; };
 		0A2E88F81DA21C870090C7E7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E88F71DA21C870090C7E7 /* RegisterViewController.swift */; };
-		0A2E88FA1DA220A10090C7E7 /* AdminListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E88F91DA220A10090C7E7 /* AdminListViewController.swift */; };
 		0A2E88FC1DA221810090C7E7 /* MessageInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E88FB1DA221810090C7E7 /* MessageInboxViewController.swift */; };
 		0A2E89011DA2267B0090C7E7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E89001DA2267B0090C7E7 /* Model.swift */; };
 		0A2E89031DA226950090C7E7 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E89021DA226950090C7E7 /* Controller.swift */; };
 		0A2E89051DA22A0F0090C7E7 /* RestCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E89041DA22A0F0090C7E7 /* RestCall.swift */; };
-		0A2E89071DA244B70090C7E7 /* CustomCellAdminList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E89061DA244B70090C7E7 /* CustomCellAdminList.swift */; };
 		0A2E89091DA266AA0090C7E7 /* CustomCellChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E89081DA266AA0090C7E7 /* CustomCellChat.swift */; };
 		453CB6B62925440336AB9F29 /* Pods_BridgeChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0209CFB6670108627F857D2 /* Pods_BridgeChatApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		019E9C22CD0D973E18EB9FFF /* Pods-BridgeChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BridgeChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-BridgeChatApp/Pods-BridgeChatApp.release.xcconfig"; sourceTree = "<group>"; };
+		0A2A7EE01DB0ABC1008AF2BE /* Assets 11-28-44-785.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets 11-28-44-785.xcassets"; sourceTree = "<group>"; };
 		0A2E88DC1DA218DF0090C7E7 /* BridgeChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BridgeChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A2E88DF1DA218DF0090C7E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A2E88E41DA218DF0090C7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0A2E88E61DA218E00090C7E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A2E88E91DA218E00090C7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A2E88EB1DA218E00090C7E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A2E88F11DA219680090C7E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A2E88F31DA21BEE0090C7E7 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0A2E88F51DA21C450090C7E7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0A2E88F71DA21C870090C7E7 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		0A2E88F91DA220A10090C7E7 /* AdminListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminListViewController.swift; sourceTree = "<group>"; };
 		0A2E88FB1DA221810090C7E7 /* MessageInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInboxViewController.swift; sourceTree = "<group>"; };
 		0A2E89001DA2267B0090C7E7 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		0A2E89021DA226950090C7E7 /* Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		0A2E89041DA22A0F0090C7E7 /* RestCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestCall.swift; sourceTree = "<group>"; };
-		0A2E89061DA244B70090C7E7 /* CustomCellAdminList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellAdminList.swift; sourceTree = "<group>"; };
 		0A2E89081DA266AA0090C7E7 /* CustomCellChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellChat.swift; sourceTree = "<group>"; };
 		67C6CF1FA897D249D4E09B3C /* Pods-BridgeChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BridgeChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BridgeChatApp/Pods-BridgeChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D0209CFB6670108627F857D2 /* Pods_BridgeChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BridgeChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,7 +82,7 @@
 				0A2E88FF1DA2260A0090C7E7 /* Controller */,
 				0A2E88DF1DA218DF0090C7E7 /* AppDelegate.swift */,
 				0A2E88E31DA218DF0090C7E7 /* Main.storyboard */,
-				0A2E88E61DA218E00090C7E7 /* Assets.xcassets */,
+				0A2A7EE01DB0ABC1008AF2BE /* Assets 11-28-44-785.xcassets */,
 				0A2E88E81DA218E00090C7E7 /* LaunchScreen.storyboard */,
 				0A2E88EB1DA218E00090C7E7 /* Info.plist */,
 				0A2E88F11DA219680090C7E7 /* GoogleService-Info.plist */,
@@ -109,9 +105,7 @@
 				0A2E88F31DA21BEE0090C7E7 /* HomeViewController.swift */,
 				0A2E88F71DA21C870090C7E7 /* RegisterViewController.swift */,
 				0A2E88F51DA21C450090C7E7 /* LoginViewController.swift */,
-				0A2E88F91DA220A10090C7E7 /* AdminListViewController.swift */,
 				0A2E88FB1DA221810090C7E7 /* MessageInboxViewController.swift */,
-				0A2E89061DA244B70090C7E7 /* CustomCellAdminList.swift */,
 				0A2E89081DA266AA0090C7E7 /* CustomCellChat.swift */,
 			);
 			name = View;
@@ -205,7 +199,7 @@
 			files = (
 				0A2E88EA1DA218E00090C7E7 /* LaunchScreen.storyboard in Resources */,
 				0A2E88F21DA219680090C7E7 /* GoogleService-Info.plist in Resources */,
-				0A2E88E71DA218E00090C7E7 /* Assets.xcassets in Resources */,
+				0A2A7EE11DB0ABC1008AF2BE /* Assets 11-28-44-785.xcassets in Resources */,
 				0A2E88E51DA218DF0090C7E7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,9 +266,7 @@
 				0A2E88E01DA218DF0090C7E7 /* AppDelegate.swift in Sources */,
 				0A2E88FC1DA221810090C7E7 /* MessageInboxViewController.swift in Sources */,
 				0A2E88F41DA21BEE0090C7E7 /* HomeViewController.swift in Sources */,
-				0A2E89071DA244B70090C7E7 /* CustomCellAdminList.swift in Sources */,
 				0A2E88F81DA21C870090C7E7 /* RegisterViewController.swift in Sources */,
-				0A2E88FA1DA220A10090C7E7 /* AdminListViewController.swift in Sources */,
 				0A2E89031DA226950090C7E7 /* Controller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

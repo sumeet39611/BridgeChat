@@ -14,6 +14,9 @@ class CustomCellChat: UITableViewCell
 {
 
     //outlet of UILabel
+    @IBOutlet weak var mAdminChatLabel: UILabel!
+    
+    //outlet of UILabel
     @IBOutlet weak var mChatLabel: UILabel!
     
     override func awakeFromNib()

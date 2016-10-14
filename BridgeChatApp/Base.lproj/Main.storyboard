@@ -181,97 +181,14 @@
                     <connections>
                         <outlet property="mPassword" destination="K8s-4G-1Ih" id="Q67-V6-T2q"/>
                         <outlet property="mUserName" destination="ct7-Vt-53u" id="sCg-T4-QDK"/>
-                        <segue destination="oNH-jb-s9Q" kind="push" identifier="gotoadminListViewController" id="x7w-SQ-vrL"/>
+                        <segue destination="YBg-uk-8SX" kind="push" identifier="gotoMessageInboxController" id="HuK-Ks-K3Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ebY-st-5NQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="149" y="993"/>
         </scene>
-        <!--AdminList-->
-        <scene sceneID="dGL-21-anH">
-            <objects>
-                <viewController id="oNH-jb-s9Q" customClass="AdminListViewController" customModule="BridgeChatApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YEk-Dv-dp6"/>
-                        <viewControllerLayoutGuide type="bottom" id="ErI-om-bPv"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QF7-i1-lFx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fhp-Lr-770">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellForAdmin" id="c96-NO-fMF" customClass="CustomCellAdminList" customModule="BridgeChatApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c96-NO-fMF" id="bXA-mR-iPN">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVC-PJ-6vh">
-                                                    <rect key="frame" x="8" y="8" width="189" height="27"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KPl-cs-iaq">
-                                                    <rect key="frame" x="245" y="12" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="8vi-qQ-CY4"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="KPl-cs-iaq" firstAttribute="leading" secondItem="lVC-PJ-6vh" secondAttribute="trailing" constant="48" id="DRK-g0-vlt"/>
-                                                <constraint firstItem="lVC-PJ-6vh" firstAttribute="bottom" secondItem="bXA-mR-iPN" secondAttribute="bottomMargin" id="Hdq-re-lPu"/>
-                                                <constraint firstItem="KPl-cs-iaq" firstAttribute="top" secondItem="bXA-mR-iPN" secondAttribute="topMargin" constant="4" id="Hw7-q5-6ag"/>
-                                                <constraint firstItem="lVC-PJ-6vh" firstAttribute="leading" secondItem="bXA-mR-iPN" secondAttribute="leadingMargin" id="clY-Xv-S92"/>
-                                                <constraint firstItem="lVC-PJ-6vh" firstAttribute="top" secondItem="bXA-mR-iPN" secondAttribute="topMargin" id="lkI-up-erq"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="KPl-cs-iaq" secondAttribute="trailing" constant="14" id="mg2-st-OyB"/>
-                                                <constraint firstItem="lVC-PJ-6vh" firstAttribute="centerY" secondItem="KPl-cs-iaq" secondAttribute="centerY" id="qbJ-XB-WTj"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="mAdminNames" destination="lVC-PJ-6vh" id="0oX-73-WZB"/>
-                                            <outlet property="mImageView" destination="KPl-cs-iaq" id="cCL-E9-p6B"/>
-                                            <segue destination="YBg-uk-8SX" kind="push" identifier="gotoMessageInboxViewController" id="QWn-VE-L1A"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="oNH-jb-s9Q" id="Lzc-Qd-RRA"/>
-                                    <outlet property="delegate" destination="oNH-jb-s9Q" id="0lK-MM-2ga"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Fhp-Lr-770" firstAttribute="leading" secondItem="QF7-i1-lFx" secondAttribute="leading" id="FUc-FH-m4e"/>
-                            <constraint firstItem="Fhp-Lr-770" firstAttribute="bottom" secondItem="ErI-om-bPv" secondAttribute="top" id="g9m-3z-cMD"/>
-                            <constraint firstAttribute="trailing" secondItem="Fhp-Lr-770" secondAttribute="trailing" id="kHg-pd-30b"/>
-                            <constraint firstItem="Fhp-Lr-770" firstAttribute="top" secondItem="QF7-i1-lFx" secondAttribute="top" id="lVw-WV-mOR"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="AdminList" id="i8G-7g-F4R">
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="d4j-aL-BAF">
-                            <connections>
-                                <action selector="logoutPressed:" destination="oNH-jb-s9Q" id="ZSt-FF-wQp"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="tableView" destination="Fhp-Lr-770" id="WXh-kF-LzO"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y7n-Gs-xKy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="555" y="993"/>
-        </scene>
-        <!--Inbox-->
+        <!--No Admin-->
         <scene sceneID="4hh-r4-whw">
             <objects>
                 <viewController id="YBg-uk-8SX" customClass="MessageInboxViewController" customModule="BridgeChatApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -326,21 +243,31 @@
                                             <rect key="frame" x="0.0" y="0.0" width="328" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXx-9o-RaB">
-                                                    <rect key="frame" x="8" y="0.0" width="312" height="32"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXx-9o-RaB">
+                                                    <rect key="frame" x="278" y="0.0" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="1" green="0.10180916555857389" blue="0.73367305207329636" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-yj-zVh">
+                                                    <rect key="frame" x="8" y="0.0" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="trailing" secondItem="c53-JV-upe" secondAttribute="trailingMargin" id="3Qt-Yy-avh"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="aXx-9o-RaB" secondAttribute="bottom" constant="4" id="7Qa-rU-Uzr"/>
-                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="leading" secondItem="c53-JV-upe" secondAttribute="leadingMargin" id="ihw-Zz-EEN"/>
-                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="wnH-Z1-FGW"/>
+                                                <constraint firstItem="ipc-yj-zVh" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="18D-ZZ-mnI"/>
+                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="leading" secondItem="ipc-yj-zVh" secondAttribute="trailing" priority="749" constant="-35" id="Em6-aI-mpa"/>
+                                                <constraint firstAttribute="bottom" secondItem="aXx-9o-RaB" secondAttribute="bottom" constant="23" id="I5Q-ay-p8K"/>
+                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="RJu-52-ZaN"/>
+                                                <constraint firstAttribute="bottom" secondItem="ipc-yj-zVh" secondAttribute="bottom" constant="23" id="drC-q3-ufi"/>
+                                                <constraint firstAttribute="trailing" secondItem="aXx-9o-RaB" secondAttribute="trailing" constant="8" id="mdB-Om-2AD"/>
+                                                <constraint firstItem="ipc-yj-zVh" firstAttribute="leading" secondItem="c53-JV-upe" secondAttribute="leading" constant="8" id="qTd-d6-g3J"/>
+                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="leading" secondItem="c53-JV-upe" secondAttribute="leading" priority="749" constant="8" id="rXN-20-NOt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="mAdminChatLabel" destination="ipc-yj-zVh" id="G8k-9W-v6T"/>
                                             <outlet property="mChatLabel" destination="aXx-9o-RaB" id="0aJ-vO-PQV"/>
                                         </connections>
                                     </tableViewCell>
@@ -362,7 +289,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="guu-Ja-zTY" secondAttribute="trailing" constant="-20" id="uBy-He-HlF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Inbox" id="o4c-r2-h5h">
+                    <navigationItem key="navigationItem" title="No Admin" id="o4c-r2-h5h">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="cCL-TQ-NBP">
                             <view key="customView" contentMode="scaleToFill" id="X6l-QD-5mg">
                                 <rect key="frame" x="233" y="5" width="71" height="33"/>
@@ -393,7 +320,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="73u-J5-zbj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="946" y="993"/>
+            <point key="canvasLocation" x="558" y="993"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hfY-PP-Pli">

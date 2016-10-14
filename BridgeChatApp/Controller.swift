@@ -18,6 +18,8 @@ class Controller: NSObject
     
     //creating reference variable for Firbase Database
     var ref : FIRDatabaseReference?
+    
+    var mFlag = 1
 
     //getting user names
     func getUserNames(callback: (Result : String, Result1 : String) -> Void)
@@ -43,18 +45,22 @@ class Controller: NSObject
         ref!.child("Admin").queryOrderedByChild("AdminName").observeEventType(.ChildAdded, withBlock: { snapshot in
             let adminName = snapshot.value!["AdminName"] as? String
             let status = snapshot.value! ["Status"] as? String
-            if (adminName != nil && status != nil)
+            
+            if (adminName != nil && status == "online" && self.mFlag == 1)
             {
+                self.mFlag = 0
                 callback(Result: adminName!, Result1: status!)
             }
         })
         
         //getting any change in Admin info
         ref!.child("Admin").observeEventType(.ChildChanged, withBlock: { snapshot in
-            let adminName = snapshot.value!.objectForKey("AdminName") as? String
+            let adminStatus = snapshot.value!.objectForKey("Status") as? String
             
-            NSNotificationCenter.defaultCenter().postNotificationName("MyNotification", object: nil, userInfo: ["success":adminName!])
-           NSNotificationCenter.defaultCenter().postNotificationName("StatusNotification", object: nil)
+            if adminStatus == "offline"
+            {
+                NSNotificationCenter.defaultCenter().postNotificationName("StatusNotification", object: nil)
+            }
         })
     }
     
