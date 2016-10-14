@@ -69,9 +69,9 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //getting admin details
     func getAdminDetails()
     {
-        //clearing previous admin chat
-        mUserMessageList.removeAll()
-        mAdminMessageList.removeAll()
+//        //clearing previous admin chat
+//        mUserMessageList.removeAll()
+//        mAdminMessageList.removeAll()
         
         controllerObj.getAdminNames({ (Result,Result1) -> Void in
             self.mSelectedAdminName = Result
@@ -101,7 +101,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         super.viewWillAppear(animated)
         
         // Add a background view to the table view
-        let backgroundImage = UIImage(named: "backgroundImage")
+        let backgroundImage = UIImage(named: "chatBackground")
         let imageView = UIImageView(image: backgroundImage)
         self.tableView.backgroundView = imageView
     }
@@ -153,9 +153,9 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         cell.backgroundColor = UIColor.clearColor()
         
         //making circular corner for label
-        cell.mChatLabel.layer.cornerRadius = 8.0;
+        cell.mChatLabel.layer.cornerRadius = 4.0;
         cell.mChatLabel.clipsToBounds = true
-        cell.mAdminChatLabel.layer.cornerRadius = 8.0;
+        cell.mAdminChatLabel.layer.cornerRadius = 4.0;
         cell.mAdminChatLabel.clipsToBounds = true
         
         if let message = mUserMessageList[indexPath.row]
@@ -172,7 +172,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         {
             
             cell.mAdminChatLabel.textAlignment = .Left
-            cell.mAdminChatLabel.backgroundColor = UIColor.lightGrayColor()
+            cell.mAdminChatLabel.backgroundColor = UIColor.grayColor()
             cell.mAdminChatLabel.textColor = UIColor.cyanColor()
             cell.mAdminChatLabel.text = message
             cell.mChatLabel.text = ""
