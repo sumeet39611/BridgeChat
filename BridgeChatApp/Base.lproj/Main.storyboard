@@ -244,26 +244,26 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXx-9o-RaB">
-                                                    <rect key="frame" x="278" y="0.0" width="42" height="21"/>
+                                                    <rect key="frame" x="278" y="0.0" width="42" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-yj-zVh">
-                                                    <rect key="frame" x="8" y="0.0" width="42" height="21"/>
+                                                    <rect key="frame" x="8" y="0.0" width="42" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ipc-yj-zVh" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="18D-ZZ-mnI"/>
-                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="leading" secondItem="ipc-yj-zVh" secondAttribute="trailing" priority="749" constant="-35" id="Em6-aI-mpa"/>
-                                                <constraint firstAttribute="bottom" secondItem="aXx-9o-RaB" secondAttribute="bottom" constant="23" id="I5Q-ay-p8K"/>
-                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="RJu-52-ZaN"/>
-                                                <constraint firstAttribute="bottom" secondItem="ipc-yj-zVh" secondAttribute="bottom" constant="23" id="drC-q3-ufi"/>
-                                                <constraint firstAttribute="trailing" secondItem="aXx-9o-RaB" secondAttribute="trailing" constant="8" id="mdB-Om-2AD"/>
-                                                <constraint firstItem="ipc-yj-zVh" firstAttribute="leading" secondItem="c53-JV-upe" secondAttribute="leading" constant="8" id="qTd-d6-g3J"/>
-                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="leading" secondItem="c53-JV-upe" secondAttribute="leading" priority="749" constant="8" id="rXN-20-NOt"/>
+                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="leading" secondItem="ipc-yj-zVh" secondAttribute="trailing" priority="749" constant="50" id="1G1-YG-DKZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="aXx-9o-RaB" secondAttribute="trailing" constant="8" id="7M1-sF-WYG"/>
+                                                <constraint firstItem="ipc-yj-zVh" firstAttribute="leading" secondItem="c53-JV-upe" secondAttribute="leading" constant="8" id="FtM-bl-ZZE"/>
+                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="leading" secondItem="ipc-yj-zVh" secondAttribute="trailing" priority="749" constant="50" id="Lhi-3x-H3M"/>
+                                                <constraint firstAttribute="bottom" secondItem="ipc-yj-zVh" secondAttribute="bottom" constant="5" id="bkx-co-qkb"/>
+                                                <constraint firstItem="ipc-yj-zVh" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="l7o-CW-MB0"/>
+                                                <constraint firstItem="aXx-9o-RaB" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="nD8-hM-0X1"/>
+                                                <constraint firstAttribute="bottom" secondItem="aXx-9o-RaB" secondAttribute="bottom" constant="5" id="oj8-ho-NHg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

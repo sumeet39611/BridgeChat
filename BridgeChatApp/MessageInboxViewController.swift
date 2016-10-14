@@ -69,6 +69,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //getting admin details
     func getAdminDetails()
     {
+        //clearing previous admin chat
         mUserMessageList.removeAll()
         mAdminMessageList.removeAll()
         
@@ -150,9 +151,16 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellForChat", forIndexPath: indexPath) as! CustomCellChat
         cell.backgroundColor = UIColor.clearColor()
+        
+        //making circular corner for label
+        cell.mChatLabel.layer.cornerRadius = 8.0;
+        cell.mChatLabel.clipsToBounds = true
+        cell.mAdminChatLabel.layer.cornerRadius = 8.0;
+        cell.mAdminChatLabel.clipsToBounds = true
+        
         if let message = mUserMessageList[indexPath.row]
         {
-//            cell.mChatLabel.textAlignment = .Right
+            //cell.mChatLabel.textAlignment = .Right
             cell.mChatLabel.backgroundColor = UIColor.lightTextColor()
             cell.mChatLabel.textColor = UIColor.magentaColor()
             cell.mChatLabel.text = message
