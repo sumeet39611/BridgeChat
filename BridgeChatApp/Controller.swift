@@ -19,6 +19,7 @@ class Controller: NSObject
     //creating reference variable for Firbase Database
     var ref : FIRDatabaseReference?
     
+    //creating variable
     var mFlag = 1
 
     //getting user names
@@ -64,7 +65,7 @@ class Controller: NSObject
         })
     }
     
-    //getting user inbox messages
+    //getting inbox messages
     func getMessage(adminName : String, userName : String, callback: (Result : String,Result1 : Int) -> Void)
     {
         //getting reference of firebase

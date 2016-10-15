@@ -11,7 +11,7 @@
 import UIKit
 import Firebase
 
-class RegisterViewController: UIViewController
+class RegisterViewController: UIViewController,UITextFieldDelegate
 {
     //outlet of UITextField for username
     @IBOutlet weak var mUserNameText: UITextField!
@@ -44,16 +44,82 @@ class RegisterViewController: UIViewController
     {
         super.viewDidLoad()
         
+        //setting textfield delegates
+        self.mUserNameText.delegate = self
+        self.mPasswordText.delegate = self
+        self.mConfirmPasswordText.delegate = self
+        
+        //adding tap gesture
+        addTapGesture()
+        
         //setting background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundImage")!)
         
         //calling method to get user names
         self.getUserDetails()
+        
+        
+        //adding observer for notification when keyboard appears
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        
+        //adding observer for notification when keyboard disappears
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
     }
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
+    }
+    
+    //creating tap gesture recognizer
+    func addTapGesture()
+    {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MessageInboxViewController.tap(_:)))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    //dismiss keyboard on tap
+    func tap(gesture: UITapGestureRecognizer)
+    {
+        mUserNameText.resignFirstResponder()
+        mPasswordText.resignFirstResponder()
+        mConfirmPasswordText.resignFirstResponder()
+    }
+    
+    //dismiss keyboard
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        mUserNameText.resignFirstResponder()
+        mPasswordText.resignFirstResponder()
+        mConfirmPasswordText.resignFirstResponder()
+        return true
+    }
+    
+    
+    //move view to up when keyboard appears
+    func keyboardWillShow(notification: NSNotification)
+    {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
+        {
+            if view.frame.origin.y == 0
+            {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    //keyboard disappears view back to position
+    func keyboardWillHide(notification: NSNotification)
+    {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
+        {
+            if view.frame.origin.y != 0
+            {
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
     }
     
     //getting user details

@@ -11,7 +11,7 @@
 import UIKit
 import Firebase
 
-class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableViewDataSource
+class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate
 {
     //outlet of tableView
     @IBOutlet weak var tableView: UITableView!
@@ -21,6 +21,9 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     
     //outlet of UILabel for status
     @IBOutlet weak var mStatus: UILabel!
+    
+    //outlet of UIButton for send button
+    @IBOutlet weak var mSendButton: UIButton!
     
     //creating variable for Selected admin name
     var mSelectedAdminName : String?
@@ -48,10 +51,23 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     
     //creating variable for storing admin messages
     var mAdminMessageList = [Int: String]()
-
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        //set delegates
+        self.mTextMessage.delegate = self
+        
+        //adding tap gesture
+        addTapGesture()
+        
+        //making circular corner for send button
+        mSendButton.layer.cornerRadius = 8.0
+        mSendButton.clipsToBounds = true
+        
+        //hide send button
+        mSendButton.hidden = true
         
         //creating tableview cell dynamically
         self.tableView.estimatedRowHeight = 21
@@ -60,18 +76,69 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         //calling method to get admin details
         self.getAdminDetails()
        
+        //adding observer for notification to get any change in admin status
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateAdminStatus), name: "StatusNotification", object:nil)
         
-        //adding observer for notification to get message of admin chat
+        //adding observer for notification to get admin
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMessagesDetails), name: "AdminNotify", object: nil)
+        
+        //adding observer for notification when keyboard appears
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        
+        //adding observer for notification when keyboard disappears
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    //creating tap gesture recognizer
+    func addTapGesture()
+    {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MessageInboxViewController.tap(_:)))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    //dismiss keyboard on tap
+    func tap(gesture: UITapGestureRecognizer)
+    {
+        mTextMessage.resignFirstResponder()
+    }
+    
+    //move view to up when keyboard appears
+    func keyboardWillShow(notification: NSNotification)
+    {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
+        {
+            if view.frame.origin.y == 0
+            {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    //keyboard disappears view back to position
+    func keyboardWillHide(notification: NSNotification)
+    {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
+        {
+            if view.frame.origin.y != 0
+            {
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+
+    //back button action
+    @IBAction func backButtonPressed(sender: UIBarButtonItem)
+    {
+        navigationController?.popViewControllerAnimated(true)
+    }
+
     //getting admin details
     func getAdminDetails()
     {
-//        //clearing previous admin chat
-//        mUserMessageList.removeAll()
-//        mAdminMessageList.removeAll()
+        //clearing previous admin chat
+        //mUserMessageList.removeAll()
+        //mAdminMessageList.removeAll()
         
         controllerObj.getAdminNames({ (Result,Result1) -> Void in
             self.mSelectedAdminName = Result
@@ -80,7 +147,6 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
                 NSNotificationCenter.defaultCenter().postNotificationName("AdminNotify", object: nil)
         })
     }
-    
     
     //updated admin status
     func updateAdminStatus()
@@ -101,7 +167,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         super.viewWillAppear(animated)
         
         // Add a background view to the table view
-        let backgroundImage = UIImage(named: "chatBackground")
+        let backgroundImage = UIImage(named: "backgroundImage")
         let imageView = UIImageView(image: backgroundImage)
         self.tableView.backgroundView = imageView
     }
@@ -137,6 +203,9 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
            
             //reloading tableview
             self.tableView.reloadData()
+            
+            self.scrollToLastRow()
+            
         })
     }
     
@@ -172,7 +241,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         {
             
             cell.mAdminChatLabel.textAlignment = .Left
-            cell.mAdminChatLabel.backgroundColor = UIColor.grayColor()
+            cell.mAdminChatLabel.backgroundColor = UIColor.lightTextColor()
             cell.mAdminChatLabel.textColor = UIColor.cyanColor()
             cell.mAdminChatLabel.text = message
             cell.mChatLabel.text = ""
@@ -182,6 +251,30 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         return cell
     }
 
+    //visible send button
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    {
+        mSendButton.hidden = false
+        return true
+    }
+    
+    //dismiss keyboard
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        mTextMessage.resignFirstResponder()
+        return true
+    }
+    
+    //auto scrolling for tableview
+    func scrollToLastRow()
+    {
+        let lastSectionIndex = tableView.numberOfSections - 1
+        let lastSectionLastRow = tableView.numberOfRowsInSection(lastSectionIndex) - 1
+        let indexPath = NSIndexPath(forRow:lastSectionLastRow, inSection: lastSectionIndex)
+        print(lastSectionLastRow)
+        self.tableView?.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.None, animated: false)
+    }
+    
     //sending user messages on node
     @IBAction func sendPressed(sender: UIButton)
     {

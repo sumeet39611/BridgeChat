@@ -91,7 +91,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ki-JX-FoN">
-                                <rect key="frame" x="105" y="299" width="110" height="70"/>
+                                <rect key="frame" x="105" y="289" width="110" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Xxt-rr-nOW"/>
                                     <constraint firstAttribute="width" constant="110" id="aTH-yd-IxU"/>
@@ -113,7 +113,7 @@
                             <constraint firstItem="lkx-KW-k75" firstAttribute="top" secondItem="yez-xe-qvo" secondAttribute="bottom" constant="35" id="b9z-2l-BGq"/>
                             <constraint firstItem="PlS-OE-dur" firstAttribute="top" secondItem="lkx-KW-k75" secondAttribute="bottom" constant="35" id="hFB-p2-NCQ"/>
                             <constraint firstItem="PlS-OE-dur" firstAttribute="leading" secondItem="tH3-gk-hCy" secondAttribute="leading" constant="20" id="hVO-TG-Bav"/>
-                            <constraint firstItem="3ki-JX-FoN" firstAttribute="top" secondItem="HUt-8J-SCg" secondAttribute="bottom" constant="40" id="kqU-dU-eIG"/>
+                            <constraint firstItem="3ki-JX-FoN" firstAttribute="top" secondItem="HUt-8J-SCg" secondAttribute="bottom" constant="30" id="kqU-dU-eIG"/>
                             <constraint firstItem="HUt-8J-SCg" firstAttribute="leading" secondItem="tH3-gk-hCy" secondAttribute="leading" constant="20" id="kxJ-ij-fAu"/>
                         </constraints>
                     </view>
@@ -213,13 +213,13 @@
                                             <constraint firstAttribute="height" constant="30" id="gZJ-VY-nuG"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Send"/>
+                                        <state key="normal" backgroundImage="subscribe_now_go_arrow_image"/>
                                         <connections>
                                             <action selector="sendPressed:" destination="YBg-uk-8SX" eventType="touchUpInside" id="aNB-LM-wIE"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.19766858334365303" green="0.41459021747184632" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="had-oN-cb2" firstAttribute="bottom" secondItem="guu-Ja-zTY" secondAttribute="bottomMargin" id="8e9-nR-JOL"/>
                                     <constraint firstItem="had-oN-cb2" firstAttribute="leading" secondItem="guu-Ja-zTY" secondAttribute="leadingMargin" id="k3n-iM-H9R"/>
@@ -249,7 +249,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-yj-zVh">
                                                     <rect key="frame" x="8" y="0.0" width="42" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -288,6 +288,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="No Admin" id="o4c-r2-h5h">
+                        <barButtonItem key="leftBarButtonItem" image="backarrow" id="5vf-RZ-csS">
+                            <connections>
+                                <action selector="backButtonPressed:" destination="YBg-uk-8SX" id="JAc-WR-gO5"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="cCL-TQ-NBP">
                             <view key="customView" contentMode="scaleToFill" id="X6l-QD-5mg">
                                 <rect key="frame" x="233" y="5" width="71" height="33"/>
@@ -295,7 +300,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="li7-Zn-T3R">
                                         <rect key="frame" x="8" y="4" width="63" height="25"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="1" green="0.012205366520094962" blue="0.053982567642970714" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -311,6 +316,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mSendButton" destination="3XA-JY-NSq" id="2h0-0N-iPU"/>
                         <outlet property="mStatus" destination="li7-Zn-T3R" id="xlb-Jg-oVR"/>
                         <outlet property="mTextMessage" destination="had-oN-cb2" id="Cdt-wl-tLS"/>
                         <outlet property="tableView" destination="eiA-7W-Exg" id="SCy-2G-lye"/>
@@ -340,9 +346,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="backarrow" width="30" height="36"/>
         <image name="ic_see_all_button" width="192" height="87"/>
+        <image name="subscribe_now_go_arrow_image" width="133" height="115"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ohe-WP-LGP"/>
+        <segue reference="x2G-rg-6zR"/>
     </inferredMetricsTieBreakers>
 </document>
