@@ -20,7 +20,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate
     @IBOutlet weak var mPassword: UITextField!
     
     //making object of Controller
-    let controllerObj = Controller()
+    let mControllerObj = Controller()
     
     //creating variable for storing user names
     var mUserNameList = [String]()
@@ -32,7 +32,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate
     var mRef : FIRDatabaseReference?
     
     //making object of RestCall
-    var restCallObj = RestCall()
+    var mRestCallObj = RestCall()
     
     //creating variable for storing user key
     var mUserKey : String?
@@ -53,13 +53,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate
         
         //calling method to get user deatils
         self.getUserDetails()
-        
-        //adding observer for notification when keyboard appears
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        
-        //adding observer for notification when keyboard disappears
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-
     }
 
     override func didReceiveMemoryWarning()
@@ -82,44 +75,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate
         mPassword.resignFirstResponder()
     }
     
-    //dismiss keyboard
-    func textFieldShouldReturn(textField: UITextField) -> Bool
-    {
-        mUserName.resignFirstResponder()
-        mPassword.resignFirstResponder()
-        return true
-    }
-    
-    
-    //move view to up when keyboard appears
-    func keyboardWillShow(notification: NSNotification)
-    {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
-        {
-            if view.frame.origin.y == 0
-            {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    //keyboard disappears view back to position
-    func keyboardWillHide(notification: NSNotification)
-    {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
-        {
-            if view.frame.origin.y != 0
-            {
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
-    }
-    
     //getting user details
     func getUserDetails()
     {
-        controllerObj.getUserNames({ (Result,Result1) -> Void in
+        mControllerObj.getUserNames({ (Result,Result1) -> Void in
             self.mUserNameList.append(Result)
             self.mUserKeyWithNameList.updateValue(Result1, forKey: Result)
         })
@@ -133,7 +92,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate
             if mUserName.text == name
             {
                 //getting reference of firebase database
-                mRef = restCallObj.getReferenceFirebase()
+                mRef = mRestCallObj.getReferenceFirebase()
                 
                 //getting key of logged user
                 mUserKey = mUserKeyWithNameList[name]

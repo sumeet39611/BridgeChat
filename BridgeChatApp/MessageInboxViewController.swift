@@ -35,15 +35,15 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     var mSelectedUserName : String?
     
     //making object of RestCall
-    let restCallObj = RestCall()
+    let mRestCallObj = RestCall()
     
     //making object of Controller
-    let controllerObj = Controller()
+    let mControllerObj = Controller()
     
     //creating reference variable for Firbase Database
     var mRef : FIRDatabaseReference?
     
-    //creating variable flag
+    //creating variable flag as a key to store messages
     var mFlag = 0
     
     //creating variable for storing user messages
@@ -65,9 +65,6 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         //making circular corner for send button
         mSendButton.layer.cornerRadius = 8.0
         mSendButton.clipsToBounds = true
-        
-        //hide send button
-        mSendButton.hidden = true
         
         //creating tableview cell dynamically
         self.tableView.estimatedRowHeight = 21
@@ -105,7 +102,6 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //move view to up when keyboard appears
     func keyboardWillShow(notification: NSNotification)
     {
-        
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
         {
             if view.frame.origin.y == 0
@@ -115,7 +111,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         }
     }
     
-    //keyboard disappears view back to position
+    //keyboard disappears then view back to its original position
     func keyboardWillHide(notification: NSNotification)
     {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
@@ -140,7 +136,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         //mUserMessageList.removeAll()
         //mAdminMessageList.removeAll()
         
-        controllerObj.getAdminNames({ (Result,Result1) -> Void in
+        mControllerObj.getAdminNames({ (Result,Result1) -> Void in
             self.mSelectedAdminName = Result
             self.mSelectedAdminStatus = Result1
             
@@ -182,11 +178,12 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     {
         //setting status of admin
         mStatus.text = mSelectedAdminStatus
+        mStatus.textColor = UIColor.greenColor()
         
         //setting admin name
         self.title = mSelectedAdminName
         
-        controllerObj.getMessage(mSelectedAdminName!, userName: mSelectedUserName! , callback: { (Result,Result1) -> Void in
+        mControllerObj.getMessage(mSelectedAdminName!, userName: mSelectedUserName! , callback: { (Result,Result1) -> Void in
             
             if Result1 == 0
             {
@@ -204,8 +201,8 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
             //reloading tableview
             self.tableView.reloadData()
             
+            //scroll tableview to last
             self.scrollToLastRow()
-            
         })
     }
     
@@ -242,7 +239,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
             
             cell.mAdminChatLabel.textAlignment = .Left
             cell.mAdminChatLabel.backgroundColor = UIColor.lightTextColor()
-            cell.mAdminChatLabel.textColor = UIColor.cyanColor()
+            cell.mAdminChatLabel.textColor = UIColor.brownColor()
             cell.mAdminChatLabel.text = message
             cell.mChatLabel.text = ""
             cell.mChatLabel.hidden = true
@@ -251,27 +248,13 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         return cell
     }
 
-    //visible send button
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
-    {
-        mSendButton.hidden = false
-        return true
-    }
-    
-    //dismiss keyboard
-    func textFieldShouldReturn(textField: UITextField) -> Bool
-    {
-        mTextMessage.resignFirstResponder()
-        return true
-    }
-    
     //auto scrolling for tableview
     func scrollToLastRow()
     {
         let lastSectionIndex = tableView.numberOfSections - 1
         let lastSectionLastRow = tableView.numberOfRowsInSection(lastSectionIndex) - 1
         let indexPath = NSIndexPath(forRow:lastSectionLastRow, inSection: lastSectionIndex)
-        print(lastSectionLastRow)
+        //print(lastSectionLastRow)
         self.tableView?.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.None, animated: false)
     }
     
@@ -281,9 +264,9 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         if mTextMessage.text?.characters.count != 0
         {
             //getting reference of firebase database
-            mRef = restCallObj.getReferenceFirebase()
+            mRef = mRestCallObj.getReferenceFirebase()
 
-            //making node as adminName and userName combine to push user message
+            //making node as adminName and userName combined to push user message
             mRef?.child("\(mSelectedAdminName!)\(mSelectedUserName!)").childByAutoId().child("userMsg").setValue(mTextMessage.text)
             
             //clearing text field

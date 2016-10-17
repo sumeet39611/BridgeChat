@@ -18,7 +18,6 @@ class HomeViewController: UIViewController
         
         //setting background image
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundImage")!)
-        
     }
 
     override func didReceiveMemoryWarning()

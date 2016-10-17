@@ -29,10 +29,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
     var mKey : String?
     
     //creating object for RestCall
-    let restCallObj = RestCall()
+    let mRestCallObj = RestCall()
     
     //making object of Controller
-    let controllerObj = Controller()
+    let mControllerObj = Controller()
     
     //creating variable for storing user names
     var mUserNameList = [String]()
@@ -57,14 +57,6 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
         
         //calling method to get user names
         self.getUserDetails()
-        
-        
-        //adding observer for notification when keyboard appears
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        
-        //adding observer for notification when keyboard disappears
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-        
     }
 
     override func didReceiveMemoryWarning()
@@ -87,45 +79,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
         mConfirmPasswordText.resignFirstResponder()
     }
     
-    //dismiss keyboard
-    func textFieldShouldReturn(textField: UITextField) -> Bool
-    {
-        mUserNameText.resignFirstResponder()
-        mPasswordText.resignFirstResponder()
-        mConfirmPasswordText.resignFirstResponder()
-        return true
-    }
-    
-    
-    //move view to up when keyboard appears
-    func keyboardWillShow(notification: NSNotification)
-    {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
-        {
-            if view.frame.origin.y == 0
-            {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    //keyboard disappears view back to position
-    func keyboardWillHide(notification: NSNotification)
-    {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
-        {
-            if view.frame.origin.y != 0
-            {
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
-    }
-    
     //getting user details
     func getUserDetails()
     {
-        controllerObj.getUserNames({ (Result,Result1) -> Void in
+        mControllerObj.getUserNames({ (Result,Result1) -> Void in
             self.mUserNameList.append(Result)
         })
     }
@@ -153,7 +110,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
                 if mFlag == 0
                 {
                     //getting reference of firebase database
-                    mRef = restCallObj.getReferenceFirebase()
+                    mRef = mRestCallObj.getReferenceFirebase()
                     
                     //generating user key
                     mKey = mRef?.childByAutoId().key
@@ -198,7 +155,5 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
         
         //adding alert to register view
         self.presentViewController(myAlert, animated: true, completion: nil)
-       
     }
-
 }

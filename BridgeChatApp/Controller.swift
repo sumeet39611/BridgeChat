@@ -14,10 +14,10 @@ import Firebase
 class Controller: NSObject
 {
     //making object of RestCall
-    let restCallObj = RestCall()
+    let mRestCallObj = RestCall()
     
     //creating reference variable for Firbase Database
-    var ref : FIRDatabaseReference?
+    var mRef : FIRDatabaseReference?
     
     //creating variable
     var mFlag = 1
@@ -25,9 +25,9 @@ class Controller: NSObject
     //getting user names
     func getUserNames(callback: (Result : String, Result1 : String) -> Void)
     {
-        ref = restCallObj.getReferenceFirebase()
+        mRef = mRestCallObj.getReferenceFirebase()
         
-        ref!.child("Users").queryOrderedByChild("username").observeEventType(.ChildAdded, withBlock: { snapshot in
+        mRef!.child("Users").queryOrderedByChild("username").observeEventType(.ChildAdded, withBlock: { snapshot in
             let userName = snapshot.value!["username"] as? String
             let userKey = snapshot.key
             if (userName != nil)
@@ -41,9 +41,9 @@ class Controller: NSObject
     func getAdminNames(callback: (Result : String, Result1 : String) -> Void)
     {
         //getting reference of firebase
-        ref = restCallObj.getReferenceFirebase()
+        mRef = mRestCallObj.getReferenceFirebase()
         
-        ref!.child("Admin").queryOrderedByChild("AdminName").observeEventType(.ChildAdded, withBlock: { snapshot in
+        mRef!.child("Admin").queryOrderedByChild("AdminName").observeEventType(.ChildAdded, withBlock: { snapshot in
             let adminName = snapshot.value!["AdminName"] as? String
             let status = snapshot.value! ["Status"] as? String
             
@@ -55,7 +55,7 @@ class Controller: NSObject
         })
         
         //getting any change in Admin info
-        ref!.child("Admin").observeEventType(.ChildChanged, withBlock: { snapshot in
+        mRef!.child("Admin").observeEventType(.ChildChanged, withBlock: { snapshot in
             let adminStatus = snapshot.value!.objectForKey("Status") as? String
             
             if adminStatus == "offline"
@@ -69,9 +69,9 @@ class Controller: NSObject
     func getMessage(adminName : String, userName : String, callback: (Result : String,Result1 : Int) -> Void)
     {
         //getting reference of firebase
-        ref = restCallObj.getReferenceFirebase()
+        mRef = mRestCallObj.getReferenceFirebase()
         
-        ref!.child("\(adminName)\(userName)").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { snapshot in
+        mRef!.child("\(adminName)\(userName)").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { snapshot in
           
             var flag = 0
             var msg = snapshot.value!["userMsg"] as? String
