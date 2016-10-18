@@ -25,6 +25,7 @@ class Controller: NSObject
     //getting user names
     func getUserNames(callback: (Result : String, Result1 : String) -> Void)
     {
+        //getting reference of firebase
         mRef = mRestCallObj.getReferenceFirebase()
         
         mRef!.child("Users").queryOrderedByChild("username").observeEventType(.ChildAdded, withBlock: { snapshot in
@@ -37,7 +38,7 @@ class Controller: NSObject
         })
     }
     
-    //getting admin names
+    //getting admin names and monitoring any change in admin
     func getAdminNames(callback: (Result : String, Result1 : String) -> Void)
     {
         //getting reference of firebase
@@ -56,12 +57,10 @@ class Controller: NSObject
         
         //getting any change in Admin info
         mRef!.child("Admin").observeEventType(.ChildChanged, withBlock: { snapshot in
-            let adminStatus = snapshot.value!.objectForKey("Status") as? String
+           // let adminStatus = snapshot.value!.objectForKey("Status") as? String
+        
+            NSNotificationCenter.defaultCenter().postNotificationName("StatusNotification", object: nil)
             
-            if adminStatus == "offline"
-            {
-                NSNotificationCenter.defaultCenter().postNotificationName("StatusNotification", object: nil)
-            }
         })
     }
     

@@ -58,6 +58,10 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         
         //set delegates
         self.mTextMessage.delegate = self
+        mTextMessage.autocorrectionType = UITextAutocorrectionType.No
+        
+        //no status
+        mStatus.text = ""
         
         //adding tap gesture
         addTapGesture()
@@ -78,7 +82,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         
         //adding observer for notification to get admin
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMessagesDetails), name: "AdminNotify", object: nil)
-        
+     
         //adding observer for notification when keyboard appears
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageInboxViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         
@@ -132,10 +136,6 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
     //getting admin details
     func getAdminDetails()
     {
-        //clearing previous admin chat
-        //mUserMessageList.removeAll()
-        //mAdminMessageList.removeAll()
-        
         mControllerObj.getAdminNames({ (Result,Result1) -> Void in
             self.mSelectedAdminName = Result
             self.mSelectedAdminStatus = Result1
@@ -150,10 +150,12 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         if mSelectedAdminStatus == "online"
         {
             mSelectedAdminStatus = "offline"
+            mStatus.textColor = UIColor.redColor()
         }
-        else if mSelectedAdminStatus == "offline"
+        else
         {
             mSelectedAdminStatus = "online"
+            mStatus.textColor = UIColor.greenColor()
         }
         mStatus.text = mSelectedAdminStatus
     }
@@ -163,11 +165,11 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         super.viewWillAppear(animated)
         
         // Add a background view to the table view
-        let backgroundImage = UIImage(named: "backgroundImage")
+        let backgroundImage = UIImage(named: "chatBackground")
         let imageView = UIImageView(image: backgroundImage)
         self.tableView.backgroundView = imageView
     }
-    
+   
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -182,7 +184,7 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         
         //setting admin name
         self.title = mSelectedAdminName
-        
+
         mControllerObj.getMessage(mSelectedAdminName!, userName: mSelectedUserName! , callback: { (Result,Result1) -> Void in
             
             if Result1 == 0
@@ -226,7 +228,6 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         
         if let message = mUserMessageList[indexPath.row]
         {
-            //cell.mChatLabel.textAlignment = .Right
             cell.mChatLabel.backgroundColor = UIColor.lightTextColor()
             cell.mChatLabel.textColor = UIColor.magentaColor()
             cell.mChatLabel.text = message
@@ -236,7 +237,6 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         }
         else if let message = mAdminMessageList[indexPath.row]
         {
-            
             cell.mAdminChatLabel.textAlignment = .Left
             cell.mAdminChatLabel.backgroundColor = UIColor.lightTextColor()
             cell.mAdminChatLabel.textColor = UIColor.brownColor()
@@ -254,7 +254,6 @@ class MessageInboxViewController: UIViewController, UITableViewDelegate,UITableV
         let lastSectionIndex = tableView.numberOfSections - 1
         let lastSectionLastRow = tableView.numberOfRowsInSection(lastSectionIndex) - 1
         let indexPath = NSIndexPath(forRow:lastSectionLastRow, inSection: lastSectionIndex)
-        //print(lastSectionLastRow)
         self.tableView?.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.None, animated: false)
     }
     

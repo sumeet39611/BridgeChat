@@ -242,12 +242,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXx-9o-RaB">
-                                                    <rect key="frame" x="278" y="0.0" width="42" height="39"/>
+                                                    <rect key="frame" x="278" y="0.0" width="42" height="37"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-yj-zVh">
-                                                    <rect key="frame" x="8" y="0.0" width="42" height="39"/>
+                                                    <rect key="frame" x="8" y="0.0" width="42" height="37"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -258,10 +258,10 @@
                                                 <constraint firstAttribute="trailing" secondItem="aXx-9o-RaB" secondAttribute="trailing" constant="8" id="7M1-sF-WYG"/>
                                                 <constraint firstItem="ipc-yj-zVh" firstAttribute="leading" secondItem="c53-JV-upe" secondAttribute="leading" constant="8" id="FtM-bl-ZZE"/>
                                                 <constraint firstItem="aXx-9o-RaB" firstAttribute="leading" secondItem="ipc-yj-zVh" secondAttribute="trailing" priority="749" constant="50" id="Lhi-3x-H3M"/>
-                                                <constraint firstAttribute="bottom" secondItem="ipc-yj-zVh" secondAttribute="bottom" constant="5" id="bkx-co-qkb"/>
+                                                <constraint firstAttribute="bottom" secondItem="ipc-yj-zVh" secondAttribute="bottom" constant="7" id="bkx-co-qkb"/>
                                                 <constraint firstItem="ipc-yj-zVh" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="l7o-CW-MB0"/>
                                                 <constraint firstItem="aXx-9o-RaB" firstAttribute="top" secondItem="c53-JV-upe" secondAttribute="top" id="nD8-hM-0X1"/>
-                                                <constraint firstAttribute="bottom" secondItem="aXx-9o-RaB" secondAttribute="bottom" constant="5" id="oj8-ho-NHg"/>
+                                                <constraint firstAttribute="bottom" secondItem="aXx-9o-RaB" secondAttribute="bottom" constant="7" id="oj8-ho-NHg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -301,7 +301,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="li7-Zn-T3R">
                                         <rect key="frame" x="8" y="4" width="63" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="1" green="0.012205366520094962" blue="0.053982567642970714" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.73890224358974366" blue="0.022505072925735996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
