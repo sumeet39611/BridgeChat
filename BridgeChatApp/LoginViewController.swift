@@ -49,7 +49,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate
         addTapGesture()
         
         //setting background image
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundImage")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
         
         //calling method to get user deatils
         self.getUserDetails()

@@ -43,24 +43,36 @@ class Controller: NSObject
     {
         //getting reference of firebase
         mRef = mRestCallObj.getReferenceFirebase()
+        var count = 0
         
         mRef!.child("Admin").queryOrderedByChild("AdminName").observeEventType(.ChildAdded, withBlock: { snapshot in
             let adminName = snapshot.value!["AdminName"] as? String
             let status = snapshot.value! ["Status"] as? String
             
+            count += 1
+            
             if (adminName != nil && status == "online" && self.mFlag == 1)
             {
                 self.mFlag = 0
+                count -= 1
                 callback(Result: adminName!, Result1: status!)
             }
-        })
         
+            //FIXME: total admin
+           if count == 4
+           {
+                NSNotificationCenter.defaultCenter().postNotificationName("DisplayAlert", object: nil)
+            }
+        })
+      
         //getting any change in Admin info
         mRef!.child("Admin").observeEventType(.ChildChanged, withBlock: { snapshot in
-           // let adminStatus = snapshot.value!.objectForKey("Status") as? String
+           let adminStatus = snapshot.value!.objectForKey("Status") as? String
         
-            NSNotificationCenter.defaultCenter().postNotificationName("StatusNotification", object: nil)
+            let dict:[String: String] = ["status": adminStatus!]
             
+            NSNotificationCenter.defaultCenter().postNotificationName("StatusNotification", object: nil, userInfo: dict)
+
         })
     }
     

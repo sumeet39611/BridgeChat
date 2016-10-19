@@ -17,7 +17,7 @@ class HomeViewController: UIViewController
         super.viewDidLoad()
         
         //setting background image
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "backgroundImage")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     }
 
     override func didReceiveMemoryWarning()
